@@ -31,4 +31,5 @@ Route::get('/home', function () {
 Auth::routes();
 
 Route::resource('roles', RoleController::class);
-
+Route::resource('users', UserController::class);
+Route::resource('categories', CategoryController::class);
