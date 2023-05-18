@@ -43,6 +43,7 @@ class CartController extends Controller
         return view('client.carts.index', compact('cart'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -127,6 +128,7 @@ class CartController extends Controller
     {
         //
     }
+
 
 
 
