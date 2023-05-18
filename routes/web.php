@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CounponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Models\Product;
-use App\Models\ProductDetail;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Size;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,52 +23,37 @@ use Intervention\Image\Size;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// route client
+Route::get('/', [HomeController::class, 'index'])->name('client.home');
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard.index');
-})->name('dashboard');
-Route::get('/home', function () {
-    return view('client.layouts.app');
-});
+
+Route::get('product/{category_id}', [ClientProductController::class, 'index'])->name('client.products.index');
+Route::get('product-detail/{id}', [ClientProductController::class, 'show'])->name('client.products.show');
+
+
+
+
 Auth::routes();
 
-Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('products', ProductController::class);
 
+// route admin
+Route::middleware('auth')->group(function(){
 
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard.index');
+    })->name('dashboard');
 
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('coupons', CounponController::class);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/test ', function(Request $request){
-
- return view('client.products.detail');
 });
+
+
+
+
+
+
+
