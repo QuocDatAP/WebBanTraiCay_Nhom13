@@ -129,6 +129,7 @@ class CartController extends Controller
     }
 
 
+
     public function removeProductInCart($id)
     {
          $cartProduct =  $this->cartProduct->find($id);
